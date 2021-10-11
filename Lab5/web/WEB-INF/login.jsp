@@ -18,6 +18,7 @@
         <br>
         <label>Password:</label>
         <input type="password" name="pass_word" value="">
+        <br>
         <input type="submit" value="Log in">
     </body>
 </html>
