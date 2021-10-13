@@ -15,6 +15,8 @@ public class HomeServlet extends HttpServlet {
         // shows welcome message home.jsp to the user including their username
         // shows logout hyperlink
         
+        getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
+        
     }
    
           @Override
