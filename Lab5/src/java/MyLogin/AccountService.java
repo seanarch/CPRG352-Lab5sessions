@@ -5,6 +5,8 @@
  */
 package MyLogin;
 
+ 
+import javax.servlet.http.HttpSession;
 import models.User;
 
 /**
@@ -16,11 +18,13 @@ public class AccountService {
     // login successful, return a user object, password set as null
     // else return null
     public User login(String username, String password){
-        User user = new User(username, password);
-         if(user.getUsername() == "abe" || user.getUsername() == "barb" && user.getPassword() == "password") {
-             return user; 
-         } else {
-             return null;
-         }  
+         
+        if((username == "abe" || username == "barb") && password == "password") {
+            return new User(username, null);
+        } else {
+            return null;
+        }
+  
     }  
+
 }
