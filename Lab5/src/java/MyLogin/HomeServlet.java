@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class HomeServlet extends HttpServlet {
 
@@ -15,8 +16,19 @@ public class HomeServlet extends HttpServlet {
         // shows welcome message home.jsp to the user including their username
         // shows logout hyperlink
         
-        getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
+        HttpSession session = request.getSession();
+     
+        String logout = (String) request.getAttribute("logout");
         
+        if(logout == "" || session.getAttribute("user_name") == null) {
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
+
+            return;  
+        } else if (logout == null || session.getAttribute("user_name") != null) {
+            getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
+        }
+        
+        return;
     }
    
           @Override
