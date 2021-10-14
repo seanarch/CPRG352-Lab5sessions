@@ -17,40 +17,64 @@ import models.User;
  */
 public class LoginServlet extends HttpServlet {
     
-         @Override
+
+          @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // displays login form
-        // responsible for logging out the user
-            // invalidate the session
-            // display a message "successfully logged out"
-
+        
         HttpSession session = request.getSession();
-     
         String logout = request.getParameter("logout");
-            
-        if(logout == "" || session.getAttribute("user_name") == null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
-            return;  
-        } else if (logout == null || session.getAttribute("user_name") != null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
+        
+        if (session.getAttribute("User") == null) {
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            return;
+        }
+        
+        if (logout == null) {
+            response.sendRedirect("home");
+            return;            
+        } else {  
+            request.setAttribute("logoutMsg", "You have successfully logged out");
+            session.invalidate();
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            return;            
         }
 
-        return;
-    }
-            
- 
-         
- 
-        
+
+
     }
    
-//          @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        // validates that username and password not empty
-//        // pass the username and password parameters to login() - AccountService
-//        
-//    }
+          @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(); 
+        
+        String input_username = request.getParameter("user_name");
+        String input_password = request.getParameter("pass_word");
+        
+        User newUser = new User(input_username, input_password); 
+        AccountService loginCheck = new AccountService(); 
+        
+        if(input_username != "" && input_password != "") {
+            if(loginCheck.login(input_username, input_password) != null) {
+                session.setAttribute("User", newUser);
+                response.sendRedirect("home");
+                return;
+            } else {
+                request.setAttribute("errMsg", "Please check your username and password.");
+                request.setAttribute("user_name", input_username);
+                request.setAttribute("user_password", input_password);
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+                return;
+            }
+        } else {
+            request.setAttribute("errorMsg", "Invalid username or password.");
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            return;            
+        }
+    }
+
+}
     
 
