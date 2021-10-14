@@ -14,7 +14,7 @@
     </head>
     <body>
         <h1>Login</h1>
-        <form method = "POST" action = "home">
+        <form method = "POST" action = "login">
         <label>Username:</label>
         <input type="text" name="user_name" value="${User.username}">
         <br>
@@ -23,5 +23,7 @@
         <br>
         <input type="submit" value="Log in">
         </form>
+        <p>${errorMsg}</p>
+        <p>${logoutMsg}</p>
     </body>
 </html>
