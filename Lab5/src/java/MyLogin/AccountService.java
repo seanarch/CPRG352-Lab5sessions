@@ -19,7 +19,7 @@ public class AccountService {
     // else return null
     public User login(String username, String password){
          
-        if((username == "abe" || username == "barb") && password == "password") {
+        if((username.equals("abe") || username.equals("barb")) && password.equals("password")) {
             return new User(username, null);
         } else {
             return null;

@@ -17,7 +17,7 @@
          
         <b>Hello ${User.username}</b>
         <br>
-        <a href="home?logout">Log out</a>
+        <a href="login?logout">Log out</a>
          
     </body>
 </html>

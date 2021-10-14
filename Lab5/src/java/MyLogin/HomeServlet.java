@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.*;
 
 public class HomeServlet extends HttpServlet {
 
@@ -16,26 +17,23 @@ public class HomeServlet extends HttpServlet {
         // shows welcome message home.jsp to the user including their username
         // shows logout hyperlink
         
-        HttpSession session = request.getSession();
-     
-        String logout = (String) request.getAttribute("logout");
+        HttpSession session = request.getSession(); 
         
-        if(logout == "" || session.getAttribute("user_name") == null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
-
-            return;  
-        } else if (logout == null || session.getAttribute("user_name") != null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request,response);
+        if(session.getAttribute("User") == null) {
+            response.sendRedirect("login");
+            return;
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
+            return;
         }
-        
-        return;
+ 
+
     }
    
           @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
     }
 
      

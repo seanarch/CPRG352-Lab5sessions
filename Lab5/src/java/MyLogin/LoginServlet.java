@@ -59,10 +59,10 @@ public class LoginServlet extends HttpServlet {
         if(input_username != "" && input_password != "") {
             if(loginCheck.login(input_username, input_password) != null) {
                 session.setAttribute("User", newUser);
-                response.sendRedirect("home");
+                response.sendRedirect("login");
                 return;
             } else {
-                request.setAttribute("errMsg", "Please check your username and password.");
+                request.setAttribute("errorMsg", "Please check your username and password.");
                 request.setAttribute("user_name", input_username);
                 request.setAttribute("user_password", input_password);
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
