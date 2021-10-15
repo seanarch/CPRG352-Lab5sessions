@@ -11,7 +11,7 @@ package models;
  */
 public class User {
     private String username;
-    public String password;
+    private String password;
     
     public User() {
         username = "";
